@@ -10,7 +10,7 @@ function doctorController () {
 	// Creating New User
 	this.registerDoctor = function (req, res, next) {
 	
-		console.log('request params',req);
+		console.log('request params ----->',req);
 		console.log('image url--->',req.files.profileImage.path);
 		var profilePic = req.profileImage ? req.profileImage : req.files.profileImage.path;
 
