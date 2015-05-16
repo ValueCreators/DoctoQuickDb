@@ -1,0 +1,7 @@
+{
+	"dbPath": "mongodb://localhost/doctoQuickDb",
+	"port": 8000,
+	"cloudinary_cloud_name":"dfgcjzhez",
+	"cloudinary_api_key": "216932511742546",
+	"cloudinary_api_secret":"VClUNwULXAA_kC4MY9CHkmWT8L8"
+}

@@ -1,0 +1,14 @@
+{
+	"name": "doctoQuickDb",
+	"version": "0.1.0",
+	"scripts": {
+		"start": "node app.js"
+	},
+	"dependencies": {
+		"restify": "*",
+		"mongoose": "*",
+		"underscore": "*",
+		"async": "*",
+		"cloudinary": "*"
+	}
+}
