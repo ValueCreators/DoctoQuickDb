@@ -4,6 +4,7 @@ module.exports = (function doctorSchema () {
 	var mongoose = require('../db').mongoose;
 
 	var schema = {
+		userId: {type: String},
 		firstName: {type: String},
 		lastName: {type: String},
 		middleName: {type: String},

@@ -7,6 +7,7 @@ module.exports = function(app) {
 	});
 
 	app.post('/registerDoctor', doctorCtrl.registerDoctor);
+	app.post('/registerDoctorFromAgent', doctorCtrl.registerDoctorFromAgent);
 	app.post('/registerPatient', patientCtrl.registerPatient);
 
 };

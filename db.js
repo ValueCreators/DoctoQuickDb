@@ -6,8 +6,6 @@ console.log('config data',config);
 mongoose.connect(config.dbPath);
 var db = mongoose.connection;
 
-//var collection = db.collection("doctoQuick");
-
 db.on('error', function (e) {
 	console.log('error occured from db',e);
 });

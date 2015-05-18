@@ -3,5 +3,7 @@
 	"port": 8000,
 	"cloudinary_cloud_name":"dfgcjzhez",
 	"cloudinary_api_key": "216932511742546",
-	"cloudinary_api_secret":"VClUNwULXAA_kC4MY9CHkmWT8L8"
+	"cloudinary_api_secret":"VClUNwULXAA_kC4MY9CHkmWT8L8",
+	"nexmo_api_key": "3dc9607c",
+	"nexmo_api_secret": "e7bdb36f"
 }
