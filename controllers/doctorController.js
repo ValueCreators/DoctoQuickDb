@@ -37,15 +37,11 @@ function doctorController () {
 			}
 		});
 
-	}
+	};
 
 	this.registerDoctorFromAgent = function (req, res, next) {
 		//console.log('request params ----->',req.headers);
 		var profilePic = req.files.profileImage.path; //req.profileImage ? req.profileImage : 
-
-
-		console.log('image url--->',profilePic);
-
 		async.waterfall([
 
 			checkIfDoctorFound.bind(undefined, req.params.mobile),
@@ -65,19 +61,27 @@ function doctorController () {
 				//Integration of Nexmo SMS Gateway to send Verification Code to Mobile
 				var to = 918904814609;
 				var from = "DoctoQuick";
-				var message = "Your User Id is:" + data.userId +" and password for your DoctoQuick is:"+data.password;
+				var password = 'thiyagu';
+				data.password = password;
+				var message = "Your DoctoQuick password is:"+password;
 				var url = "http://rest.nexmo.com/sms/json?api_key="+config.nexmo_api_key+"&api_secret="+config.nexmo_api_secret+"&from="+from+"&to="+to+"&text="+message;
        			
 				
 				async.waterfall([
+
+					updateDoctorPassword.bind(undefined, data),
+
 					sendMessage.bind(undefined, url),
+
 					verifyDelivery.bind(undefined)
+
 				],function final(err, data) {
 					console.log('after sending the message--->',err , data);
-					return res.send({'result':data,'status':'successfully saved'});
+					return res.send({'result':data,'status':'Password is send to ur mobile number'});
 				});
 
-				function sendMessage (url, callback) {
+				function sendMessage (url, obj, callback) {
+					console.log('send message --->', url);
 					request(url, function(err, response, data) {
 						if (!err) {
 							return callback(null, JSON.parse(data));
@@ -122,7 +126,20 @@ function doctorController () {
 			}
 		});
 
-	}
+	};
+
+	this.loginDoctor = function (req, res, next) {
+		DoctorTable.findOne({
+			mobile: req.params.mobile,
+			password: req.params.password
+		}, function (err, data) {
+				console.log('lafter login ------>',err,data);
+				if (err || data === null) {
+					return res.send({'result':err,'status':'Login fails!!!!'});
+				}
+				return res.send({'result':data,'status':'successfully loggedIn'});
+		});
+	};
 
 	//checking doctor already registered or not
 	function checkIfDoctorFound (mobile_number, callback) {
@@ -148,7 +165,7 @@ function doctorController () {
 				obj.message = 'Already registered';
 				return callback(null, obj);
 				
-		})
+		});
 	};
 
 	//create doctor in the doctor table
@@ -186,6 +203,7 @@ function doctorController () {
 					return callback(err);
 				}
 				else { 
+					result.mobile = req.mobile;
 					console.log("User updated ---->",result);
 					return callback(null, result);
 				}
@@ -195,9 +213,24 @@ function doctorController () {
 		}
 	};
 
+	//update doctor password in the doctor table
+	function updateDoctorPassword (req, callback) {
+
+		console.log('updateDoctorPassword ---->', req);
+		DoctorTable.update({mobile: req.mobile}, {$set: {password: req.password}}, function(err, result) {
+			if( err) { 
+				console.log("password set error");
+				console.log(err);
+				return callback(err);
+			}
+			else { 
+				console.log("password update updated ---->",result);
+				return callback(null, result);
+			}
+		});
+	};
 
 	//upload Image
-
 	function uploadImage(image, obj, callback) {
 		console.log('upload image--->',image);
 		//var obj = {};
