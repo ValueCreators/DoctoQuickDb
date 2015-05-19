@@ -14,6 +14,7 @@ module.exports = function(app) {
 
 	/*Patient functionality */
 	app.post('/registerPatient', patientCtrl.registerPatient);
+	app.post('/loginPatient', patientCtrl.loginPatient);
 	app.post('/createPatientRequest', patientRequestCtrl.createPatientRequest);
 	app.get('/getPatientRequest', patientRequestCtrl.getPatientRequest);
 

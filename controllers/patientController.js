@@ -36,6 +36,19 @@ function patientController () {
 		});
 	};
 
+	this.loginPatient = function (req, res next) {
+		PatientTable.findOne({
+			mobile: req.params.mobile,
+			password: req.params.password
+		}, function (err, data) {
+				console.log('lafter login ------>',err,data);
+				if (err || data === null) {
+					return res.send({'result':err,'status':'Login fails!!!!'});
+				}
+				return res.send({'result':data,'status':'successfully loggedIn'});
+		});
+	};
+
 	//checking doctor already registered or not
 	function checkIfPatientFound (mobile_number, callback) {
 		
