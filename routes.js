@@ -1,4 +1,7 @@
 module.exports = function(app) {
+
+	//var agentCtrl = require('./controllers/agentController');
+
 	var doctorCtrl = require('./controllers/doctorController');
 	var patientCtrl = require('./controllers/patientController');
 	var patientRequestCtrl = require('./controllers/patientRequestController');
@@ -6,6 +9,10 @@ module.exports = function(app) {
 	app.get('/', function(req, res, next) {
 		return res.send("WELCOME TO DOCTOAPP WEB SERVICE !!!!!!!");
 	});
+
+	/*Agent functinality */
+	//app.post('/registerAgent', agentCtrl.registerAgent);
+	//app.post('/login', agentCtrl.loginAgent);
 
 	/*Doctor functionality */
 	app.post('/registerDoctor', doctorCtrl.registerDoctor);

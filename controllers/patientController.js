@@ -36,7 +36,7 @@ function patientController () {
 		});
 	};
 
-	this.loginPatient = function (req, res next) {
+	this.loginPatient = function (req, res, next) {
 		PatientTable.findOne({
 			mobile: req.params.mobile,
 			password: req.params.password
